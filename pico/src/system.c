@@ -1,4 +1,5 @@
 #include "system.h"
+#include "tick_timer.h"
 
 #include <hardware/clocks.h>
 #include <pico/stdlib.h>
@@ -37,4 +38,9 @@ void system_init(void)
         system_led_set(false);
         PICO_SYS_CLK = PICO_MAX_SYSCLK;
     }
+
+    stdio_usb_init();
+
+    // init tick timer
+    timer_1ms_tick_init();
 }

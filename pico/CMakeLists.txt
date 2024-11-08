@@ -38,6 +38,7 @@ pico_sdk_init()
 add_executable(BerryBus
     BerryBus.c
     src/system.c
+    src/tick_timer.c
     )
 
 pico_set_program_name(BerryBus "BerryBus")
