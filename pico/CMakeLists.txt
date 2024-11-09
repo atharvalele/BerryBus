@@ -38,6 +38,7 @@ pico_sdk_init()
 add_executable(BerryBus
     BerryBus.c
     src/system.c
+    src/task_sched.c
     src/tick_timer.c
     )
 
