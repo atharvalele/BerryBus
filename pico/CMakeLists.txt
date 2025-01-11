@@ -40,6 +40,7 @@ add_executable(BerryBus
     src/system.c
     src/task_sched.c
     src/tick_timer.c
+    src/usb_comm.c
     )
 
 pico_set_program_name(BerryBus "BerryBus")

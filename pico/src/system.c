@@ -1,5 +1,6 @@
 #include "system.h"
 #include "tick_timer.h"
+#include "usb_comm.h"
 
 #include <hardware/clocks.h>
 #include <pico/stdlib.h>
@@ -39,6 +40,7 @@ void system_init(void)
         PICO_SYS_CLK = PICO_MAX_SYSCLK;
     }
 
+    usb_comm_init();
     stdio_usb_init();
 
     // init tick timer

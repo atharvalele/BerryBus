@@ -7,6 +7,7 @@
 #define SYS_TICK_PER_MS                 1U
 
 // Some predefined task intervals
+#define TASK_INTERVAL_NONE              (0U * SYS_TICK_PER_MS)
 #define TASK_INTERVAL_1MS               (1U * SYS_TICK_PER_MS)
 #define TASK_INTERVAL_10MS              (10U * SYS_TICK_PER_MS)
 #define TASK_INTERVAL_50MS              (50U * SYS_TICK_PER_MS)
