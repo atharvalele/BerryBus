@@ -27,6 +27,10 @@ void system_led_set(bool on)
 /* Initialize system */
 void system_init(void)
 {
+    // Fix timer freeze in debug mode
+    // https://github.com/raspberrypi/pico-feedback/issues/428
+    timer_hw->dbgpause = 0;
+
     bool clk_sw_status;
 
     // init onboard LED
@@ -36,12 +40,15 @@ void system_init(void)
     system_led_set(true);
     clk_sw_status = set_sys_clock_khz((PICO_MAX_SYSCLK/1000UL), true);
     if (true == clk_sw_status) {
+        sleep_ms(50);
         system_led_set(false);
         PICO_SYS_CLK = PICO_MAX_SYSCLK;
     }
 
     usb_comm_init();
     stdio_usb_init();
+
+    
 
     // init tick timer
     timer_1ms_tick_init();
