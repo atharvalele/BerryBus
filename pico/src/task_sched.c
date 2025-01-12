@@ -32,7 +32,7 @@ void task_sched_dispatch(void)
 {
     curr_tick = timer_get_current_1ms_tick();
 
-    for (uint32_t t; t < task_num; t++) {
+    for (uint32_t t = 0; t < task_num; t++) {
         // Run task if continuous (interval == 0)
         if (0 == task_ptr[t].interval) {
             task_ptr[t].func();
