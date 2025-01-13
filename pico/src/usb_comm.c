@@ -18,15 +18,21 @@ void usb_comm_init(void)
 
 int usb_comm_getchar(void)
 {
-    int c;
-    c = stdio_getchar_timeout_us(USB_COMM_TOUT_US);
-
-    return c;
+    char c;
+    if (true == queue_try_remove(&usb_comm_rxq, &c)) {
+        return c;
+    } else {
+        return USB_COMM_NO_DATA;
+    }
 }
 
-void usb_comm_putchar(const char c)
+int usb_comm_putchar(const char c)
 {
-    stdio_putchar(c);
+    if (true == queue_try_add(&usb_comm_rxq, &c)) {
+        return USB_COMM_OK;
+    } else {
+        return USB_COMM_BUF_FULL;
+    }
 }
 
 void usb_comm_task(void)
@@ -44,5 +50,14 @@ void usb_comm_task(void)
     // Write data if any
     if (true == queue_try_remove(&usb_comm_txq, &c)) {
         usb_comm_putchar(c);
+    }
+}
+
+bool usb_comm_available(void)
+{
+    if (false == queue_is_empty(&usb_comm_rxq)) {
+        return true;
+    } else {
+        return false;
     }
 }
