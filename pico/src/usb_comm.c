@@ -31,11 +31,13 @@ void usb_comm_putchar(const char c)
 
 void usb_comm_task(void)
 {
+    int rx;
     char c;
     
     // Read data in
-    c = stdio_getchar_timeout_us(0);
-    if (c >= 0) {
+    rx = stdio_getchar_timeout_us(0);
+    if (rx >= 0) {
+        c = (char)rx;
         queue_try_add(&usb_comm_rxq, &c);
     }
 
